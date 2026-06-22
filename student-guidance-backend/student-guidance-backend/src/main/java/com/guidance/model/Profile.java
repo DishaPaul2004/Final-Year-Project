@@ -27,7 +27,7 @@ public class Profile {
     @Column(columnDefinition = "TEXT")
     private String experiences; // JSON string
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "LONGTEXT")
     private String profileImageUrl;
 
     public Long getId() {

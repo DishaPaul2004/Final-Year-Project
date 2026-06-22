@@ -17,20 +17,6 @@ const Auth = () => {
   });
   const navigate = useNavigate();
 
-  /*const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!isLogin && formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
-
-    // TODO: Integrate with Spring Boot backend API
-    toast.success(isLogin ? "Login successful!" : "Registration successful!");
-    localStorage.setItem("isAuthenticated", "true");
-    navigate("/dashboard");
-  };*/
-
   const handleSubmit = async (e) => {
   e.preventDefault();
 

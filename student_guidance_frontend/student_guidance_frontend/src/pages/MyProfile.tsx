@@ -12,7 +12,7 @@ import { jwtDecode } from "jwt-decode";
 
 const MyProfile = () => {
   const navigate = useNavigate();
-  const [isEditing, setIsEditing] = useState(false); // ✅ NEW - controls edit/view mode
+  const [isEditing, setIsEditing] = useState(false); 
   const [skills, setSkills] = useState<string[]>([]);
   const [skillInput, setSkillInput] = useState("");
   const [experiences, setExperiences] = useState<any[]>([]);
@@ -35,7 +35,7 @@ const MyProfile = () => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // ✅ Decode JWT and fetch existing profile
+  //Decode JWT and fetch existing profile
   useEffect(() => {
     const data = localStorage.getItem("token");
     if (data) {
@@ -80,7 +80,7 @@ const MyProfile = () => {
     }
   };
 
-  // ✅ Skills handlers
+  //Skills handlers
   const addSkill = () => {
     if (skillInput.trim() && !skills.includes(skillInput.trim())) {
       setSkills([...skills, skillInput.trim()]);
@@ -91,7 +91,7 @@ const MyProfile = () => {
   const removeSkill = (skill: string) =>
     setSkills(skills.filter((s) => s !== skill));
 
-  // ✅ Experience handlers
+  //Experience handlers
   const addExperience = () => {
     if (currentExp.title && currentExp.startDate) {
       setExperiences([...experiences, currentExp]);
@@ -103,20 +103,11 @@ const MyProfile = () => {
     setExperiences(experiences.filter((_, i) => i !== index));
   };
 
-  // ✅ File upload
+  //File upload
   const handleUploadClick = () => {
     if (isEditing) fileInputRef.current?.click();
   };
 
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file && file.type.startsWith("image/")) {
-  //     const imageUrl = URL.createObjectURL(file);
-  //     setProfileImage(imageUrl);
-  //   } else {
-  //     toast.error("Please select a valid image file");
-  //   }
-  // };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file && file.type.startsWith("image/")) {
@@ -130,7 +121,7 @@ const MyProfile = () => {
     }
   };
 
-  // ✅ Save Profile
+  //Save Profile
   const handleSaveProfile = async () => {
     const token = localStorage.getItem("token");
     const decoded: any = jwtDecode(token || "");
@@ -177,7 +168,7 @@ const MyProfile = () => {
         </Button>
 
         <Card className="p-8 shadow-elevated relative">
-          {/* 📝 Edit / Save button */}
+          {/* Edit / Save button */}
           <Button
             variant={isEditing ? "default" : "outline"}
             size="sm"
