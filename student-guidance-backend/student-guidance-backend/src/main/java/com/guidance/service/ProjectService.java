@@ -186,4 +186,49 @@ public class ProjectService {
 
         return response;
     }
+
+    public boolean isUserMemberOfProjectGroup(Long projectId, String email) {
+        if (email == null || email.isBlank()) return false;
+
+        Optional<Project> projectOpt = getProjectById(projectId);
+        if (projectOpt.isEmpty()) return false;
+
+        Project project = projectOpt.get();
+
+        // Match project creator
+        if (email.trim().equalsIgnoreCase(project.getCreatedBy())) {
+            return true;
+        }
+
+        // Match if user's email belongs to any of the team members resolved via the transient field
+        if (project.getTeamMembers() != null) {
+            return project.getTeamMembers().stream()
+                    .anyMatch(member -> email.trim().equalsIgnoreCase(member.getEmail()));
+        }
+
+        return false;
+    }
+
+    public Project updateProject(Long id, Project updatedProject) {
+        return projectRepository.findById(id).map(existingProject -> {
+            existingProject.setName(updatedProject.getName());
+            existingProject.setAbstractText(updatedProject.getAbstractText());
+            existingProject.setGithubLink(updatedProject.getGithubLink());
+            existingProject.setStartDate(updatedProject.getStartDate());
+            existingProject.setEndDate(updatedProject.getEndDate());
+            existingProject.setTechnologies(updatedProject.getTechnologies());
+            if (updatedProject.getImageData() != null) {
+                existingProject.setImageData(updatedProject.getImageData());
+            }
+            return projectRepository.save(existingProject);
+        }).orElseThrow(() -> new RuntimeException("Project not found with id " + id));
+    }
+
+    public boolean deleteProject(Long id) {
+        if (projectRepository.existsById(id)) {
+            projectRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }

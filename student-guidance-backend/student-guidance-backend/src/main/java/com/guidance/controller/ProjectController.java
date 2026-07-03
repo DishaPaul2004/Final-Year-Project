@@ -49,6 +49,33 @@ public class ProjectController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateProject(@PathVariable Long id, @RequestBody Project updatedProject, @RequestParam String email) {
+        try {
+            boolean hasPermission = projectService.isUserMemberOfProjectGroup(id, email);
+            if (!hasPermission) {
+                return ResponseEntity.status(403).body("Access Denied: You are not a member of the group that owns this project.");
+            }
+            Project project = projectService.updateProject(id, updatedProject);
+            return ResponseEntity.ok(project);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProject(@PathVariable Long id, @RequestParam String email) {
+        boolean hasPermission = projectService.isUserMemberOfProjectGroup(id, email);
+        if (!hasPermission) {
+            return ResponseEntity.status(403).body("Access Denied: You are not a member of the group that owns this project.");
+        }
+        boolean deleted = projectService.deleteProject(id);
+        if (deleted) {
+            return ResponseEntity.ok().body(Map.of("message", "Project successfully deleted."));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @GetMapping("/mentorship-summary")
     public ResponseEntity<Map<String, Object>> getMentorshipSummary(@RequestParam String email) {
         return ResponseEntity.ok(projectService.getMentorshipSummary(email));
