@@ -11,7 +11,6 @@ import MyProjects from "./pages/MyProjects";
 import ProjectDetail from "./pages/ProjectDetail";
 import MentorsMentees from "./pages/MentorsMentees";
 import Chat from "./pages/Chat";
-import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import { MyRequests } from "./pages/MyRequests";
 
@@ -76,14 +75,6 @@ const App = () => (
             element={
               <ProtectedRoute>
                 <Chat />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <ProtectedRoute>
-                <Settings />
               </ProtectedRoute>
             }
           />

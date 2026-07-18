@@ -75,7 +75,7 @@ export const ConnectMentorDialog = ({ open, onOpenChange, groupId, onMentorConne
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[85vh] flex flex-col">
+      <DialogContent className="max-w-2xl h-[550px] flex flex-col">
         <DialogHeader>
           <DialogTitle>Invite Project Mentors</DialogTitle>
         </DialogHeader>

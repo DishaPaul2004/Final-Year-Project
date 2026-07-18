@@ -90,7 +90,6 @@ const Dashboard = () => {
                   <DropdownMenuItem onClick={() => navigate("/my-requests")}>My Requests</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate("/my-projects")}>My Projects</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate("/mentors-mentees")}>My Mentors & Mentees</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate("/settings")}>Settings</DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout} className="text-destructive">Log Out</DropdownMenuItem>
                 </DropdownMenuContent>

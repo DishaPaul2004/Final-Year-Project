@@ -88,7 +88,7 @@ public class GroupChatController {
             @RequestParam(value = "search", required = false, defaultValue = "") String search) {
 
         // 1. Fetch data from your existing repository join query
-        List<Profile> matchedProfiles = profileRepository.searchPotentialMentors(search);
+        List<Profile> matchedProfiles = profileRepository.searchPotentialMentors(groupId, search);
 
         // 2. Map fields inline directly to Java Maps instead of a custom class object
         List<Map<String, Object>> response = matchedProfiles.stream()
